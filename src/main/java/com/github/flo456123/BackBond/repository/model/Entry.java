@@ -1,4 +1,4 @@
-package com.github.flo456123.BackBond.repository;
+package com.github.flo456123.BackBond.repository.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
