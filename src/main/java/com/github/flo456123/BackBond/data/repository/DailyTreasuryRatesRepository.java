@@ -1,6 +1,6 @@
 package com.github.flo456123.BackBond.data.repository;
 
-import com.github.flo456123.BackBond.data.models.Entry;
+import com.github.flo456123.BackBond.data.model.Entry;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-public interface EntryRepository
+public interface DailyTreasuryRatesRepository
         extends JpaRepository<Entry, Integer> {
 
     @Query("SELECT e FROM Entry e WHERE e.id = ?1")

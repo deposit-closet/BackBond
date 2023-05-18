@@ -1,7 +1,7 @@
 package com.github.flo456123.BackBond.controller;
 
-import com.github.flo456123.BackBond.data.models.Entry;
-import com.github.flo456123.BackBond.data.services.EntryService;
+import com.github.flo456123.BackBond.data.model.Entry;
+import com.github.flo456123.BackBond.data.service.DailyTreasuryRatesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DailyTreasuryRatesController {
 
-    private final EntryService entryService;
+    private final DailyTreasuryRatesService entryService;
 
     /**
      * Returns the status of the API.
