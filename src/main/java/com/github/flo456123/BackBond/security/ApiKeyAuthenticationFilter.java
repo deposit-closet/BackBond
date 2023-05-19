@@ -1,9 +1,9 @@
 package com.github.flo456123.BackBond.security;
 
-import com.github.flo456123.BackBond.security.config.Environment;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -15,7 +15,8 @@ import java.io.IOException;
 @Component
 public class ApiKeyAuthenticationFilter implements Filter {
 
-    private static final String centralApiKey = Environment.get("KEY");
+    @Value("${spring.api.key}")
+    private String centralApiKey;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
