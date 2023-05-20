@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -19,52 +18,8 @@ public class DailyTreasuryRatesService {
         return entryRepository.findAll();
     }
 
-    public Entry findEntryById(Integer id) {
-        Optional<Entry> entryByDate = entryRepository
-                .getEntryById(id);
-
-        if (entryByDate.isEmpty()) {
-            throw new IllegalStateException("date is not present in database");
-        }
-
-        return entryByDate.get();
-    }
-
-    public Entry findEntryByDate(LocalDateTime localDateTime) {
-        Optional<Entry> entryByDate = entryRepository
-                .getEntryByDate(localDateTime);
-
-        if (entryByDate.isEmpty()) {
-            throw new IllegalStateException("date is not present in database");
-        }
-
-        return entryByDate.get();
-    }
-
     public List<Entry> findEntriesByDateRange(LocalDateTime startDate, LocalDateTime endDate) {
         return entryRepository.getEntriesByDateRange(startDate, endDate);
-    }
-
-    public Entry getLatestEntry() {
-        Optional<Entry> latestEntry = entryRepository
-                .getLatestEntry();
-
-        if (latestEntry.isEmpty()) {
-            throw new IllegalStateException("no entries are present in database");
-        }
-
-        return latestEntry.get();
-    }
-
-    public void addNewEntry(Entry entry) {
-        Optional<Entry> entryByDate = entryRepository
-                .getEntryByDate(entry.getNewDate());
-
-        if (entryByDate.isPresent()) {
-            throw new IllegalStateException("date is already taken");
-        }
-
-        entryRepository.save(entry);
     }
 
     public void addNewEntries(List<Entry> entries) {
