@@ -22,4 +22,7 @@ public interface DailyTreasuryRatesRepository
 
     @Query("SELECT e FROM Entry e ORDER BY e.newDate DESC")
     Optional<Entry> getLatestEntry();
+
+    @Query("SELECT newDate FROM Entry")
+    List<LocalDateTime> findAllDates();
 }
