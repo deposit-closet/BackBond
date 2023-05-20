@@ -40,3 +40,6 @@ build/
 /mvnw
 /.mvn/
 /mvnw.cmd
+
+### Docker ###
+/docker-compose.yml
