@@ -67,6 +67,16 @@ public class DailyTreasuryRatesService {
         entryRepository.save(entry);
     }
 
+    public void addNewEntries(List<Entry> entries) {
+        List<LocalDateTime> existingDates = entryRepository.findAllDates();
+
+        List<Entry> newEntries = entries.stream()
+                .filter(entry -> !existingDates.contains(entry.getNewDate()))
+                .toList();
+
+        entryRepository.saveAll(newEntries);
+    }
+
     public long countEntries() {
         return entryRepository.count();
     }
