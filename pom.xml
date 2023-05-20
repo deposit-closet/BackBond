@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.github.flo456123</groupId>
-	<artifactId>BackBond</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>back-bond</artifactId>
+	<version>1.2.3</version>
 	<name>BackBond</name>
-	<description>The backend API for Daily Treasury Par Yield Curve Rates Visualizer</description>
+	<description>Backend RESTful API for Daily Treasury Par Yield Curve Rates Visualizer</description>
 
 	<properties>
 		<java.version>17</java.version>
