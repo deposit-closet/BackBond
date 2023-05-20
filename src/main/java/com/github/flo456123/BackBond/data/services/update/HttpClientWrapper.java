@@ -1,13 +1,10 @@
-package com.github.flo456123.BackBond.data.service.update;
+package com.github.flo456123.BackBond.data.services.update;
 
-import lombok.NoArgsConstructor;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.Closeable;
@@ -32,7 +29,6 @@ import java.io.InputStream;
  */
 @Component
 public class HttpClientWrapper implements Closeable {
-    private static final Logger logger = LoggerFactory.getLogger(HttpClientWrapper.class);
 
     private final CloseableHttpClient httpClient;
     private final PoolingHttpClientConnectionManager connectionManager;

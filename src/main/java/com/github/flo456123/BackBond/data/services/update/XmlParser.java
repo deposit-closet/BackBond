@@ -1,4 +1,4 @@
-package com.github.flo456123.BackBond.data.service.update;
+package com.github.flo456123.BackBond.data.services.update;
 
 import com.github.flo456123.BackBond.data.model.Entry;
 import lombok.NoArgsConstructor;

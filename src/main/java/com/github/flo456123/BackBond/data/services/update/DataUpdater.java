@@ -1,7 +1,7 @@
-package com.github.flo456123.BackBond.data.service.update;
+package com.github.flo456123.BackBond.data.services.update;
 
 import com.github.flo456123.BackBond.data.model.Entry;
-import com.github.flo456123.BackBond.data.service.DailyTreasuryRatesService;
+import com.github.flo456123.BackBond.data.services.DailyTreasuryRatesService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

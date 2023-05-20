@@ -1,7 +1,7 @@
 package com.github.flo456123.BackBond.controller;
 
 import com.github.flo456123.BackBond.data.model.Entry;
-import com.github.flo456123.BackBond.data.service.DailyTreasuryRatesService;
+import com.github.flo456123.BackBond.data.services.DailyTreasuryRatesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;

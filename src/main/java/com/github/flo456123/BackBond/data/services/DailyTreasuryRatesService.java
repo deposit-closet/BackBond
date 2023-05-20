@@ -1,4 +1,4 @@
-package com.github.flo456123.BackBond.data.service;
+package com.github.flo456123.BackBond.data.services;
 
 import com.github.flo456123.BackBond.data.model.Entry;
 import com.github.flo456123.BackBond.data.repository.DailyTreasuryRatesRepository;
