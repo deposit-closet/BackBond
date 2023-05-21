@@ -56,7 +56,7 @@ public class DataUpdater {
      *     uploads new entries to the XML feed.
      * </p>
      */
-    @Scheduled(cron = "14 0 16 * * ?") // Executes at 16:00:14 every day
+    @Scheduled(cron = "14 0 16 * * ?", zone = "EST") // Executes at 16:00:14 every day
     public void updateData() {
         logger.info("Starting auto update service!");
 
