@@ -20,6 +20,10 @@ public class PYCRService {
         return entryRepository.getEntriesByDateRange(startDate, endDate);
     }
 
+    public List<Entry> findEntriesByColumn(String colName) {
+        return entryRepository.findEntriesByColumn(colName);
+    }
+
     public void addNewEntries(List<Entry> entries) {
         List<LocalDateTime> existingDates = entryRepository.findAllDates();
 

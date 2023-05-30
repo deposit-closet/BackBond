@@ -14,4 +14,7 @@ public interface PYCRRepository
 
     @Query("SELECT newDate FROM Entry")
     List<LocalDateTime> findAllDates();
+
+    @Query("SELECT ?1 FROM Entry")
+    List<Entry> findEntriesByColumn(String columnName);
 }
