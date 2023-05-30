@@ -17,10 +17,22 @@ public class PYCRService {
     }
 
     public List<Entry> findEntriesByDateRange(LocalDateTime startDate, LocalDateTime endDate) {
+        if (startDate == null || endDate == null) {
+            throw new IllegalArgumentException("start date and end date cannot be null");
+        }
+
+        if (startDate.isAfter(endDate)) {
+            throw new IllegalArgumentException("start date cannot be after end date");
+        }
+
         return entryRepository.getEntriesByDateRange(startDate, endDate);
     }
 
     public List<Entry> findEntriesByColumn(String colName) {
+        if (colName == null || colName.isEmpty()) {
+            throw new IllegalArgumentException("column name cannot be null or empty");
+        }
+
         return entryRepository.findEntriesByColumn(colName);
     }
 
