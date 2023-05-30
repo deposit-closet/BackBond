@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.github.flo456123</groupId>
 	<artifactId>back-bond</artifactId>
-	<version>1.2.3</version>
+	<version>1.2.4</version>
 	<name>BackBond</name>
 	<description>Backend RESTful API for Daily Treasury Par Yield Curve Rates Visualizer</description>
 
