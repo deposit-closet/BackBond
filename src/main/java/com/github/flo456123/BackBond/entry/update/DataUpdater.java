@@ -1,7 +1,7 @@
-package com.github.flo456123.BackBond.data.services.update;
+package com.github.flo456123.BackBond.entry.update;
 
-import com.github.flo456123.BackBond.data.model.Entry;
-import com.github.flo456123.BackBond.data.services.DailyTreasuryRatesService;
+import com.github.flo456123.BackBond.entry.Entry;
+import com.github.flo456123.BackBond.entry.PYCRService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +29,7 @@ public class DataUpdater {
 
     private static final Logger logger = LoggerFactory.getLogger(DataUpdater.class);
 
-    private final DailyTreasuryRatesService dailyTreasuryRatesService;
+    private final PYCRService dailyTreasuryRatesService;
     private final XmlParser xmlParser;
 
     private static final String baseUrl = """

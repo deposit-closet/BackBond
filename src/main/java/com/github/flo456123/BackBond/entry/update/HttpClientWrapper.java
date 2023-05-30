@@ -1,4 +1,4 @@
-package com.github.flo456123.BackBond.data.services.update;
+package com.github.flo456123.BackBond.entry.update;
 
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;

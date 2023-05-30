@@ -1,4 +1,4 @@
-package com.github.flo456123.BackBond.data.model;
+package com.github.flo456123.BackBond.entry;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -38,5 +38,4 @@ public class Entry {
     private double BC_10YEAR;
     private double BC_20YEAR;
     private double BC_30YEAR;
-
 }

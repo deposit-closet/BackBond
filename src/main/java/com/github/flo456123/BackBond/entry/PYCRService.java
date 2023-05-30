@@ -1,7 +1,5 @@
-package com.github.flo456123.BackBond.data.services;
+package com.github.flo456123.BackBond.entry;
 
-import com.github.flo456123.BackBond.data.model.Entry;
-import com.github.flo456123.BackBond.data.repository.DailyTreasuryRatesRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +8,9 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class DailyTreasuryRatesService {
+public class PYCRService {
 
-    private final DailyTreasuryRatesRepository entryRepository;
+    private final PYCRRepository entryRepository;
 
     public List<Entry> getEntries() {
         return entryRepository.findAll();

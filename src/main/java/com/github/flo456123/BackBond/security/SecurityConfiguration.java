@@ -1,6 +1,6 @@
-package com.github.flo456123.BackBond.security.config;
+package com.github.flo456123.BackBond.security;
 
-import com.github.flo456123.BackBond.security.ApiKeyAuthenticationFilter;
+import com.github.flo456123.BackBond.security.filter.ApiKeyAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
