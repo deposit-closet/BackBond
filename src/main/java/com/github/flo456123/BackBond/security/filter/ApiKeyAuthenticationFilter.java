@@ -1,4 +1,4 @@
-package com.github.flo456123.BackBond.security;
+package com.github.flo456123.BackBond.security.filter;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
