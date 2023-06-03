@@ -16,24 +16,8 @@ public class PYCRService {
         return entryRepository.findAll();
     }
 
-    public List<Entry> findEntriesByDateRange(LocalDateTime startDate, LocalDateTime endDate) {
-        if (startDate == null || endDate == null) {
-            throw new IllegalArgumentException("start date and end date cannot be null");
-        }
-
-        if (startDate.isAfter(endDate)) {
-            throw new IllegalArgumentException("start date cannot be after end date");
-        }
-
-        return entryRepository.getEntriesByDateRange(startDate, endDate);
-    }
-
-    public List<Entry> findEntriesByColumn(String colName) {
-        if (colName == null || colName.isEmpty()) {
-            throw new IllegalArgumentException("column name cannot be null or empty");
-        }
-
-        return entryRepository.findEntriesByColumn(colName);
+    public long countEntries() {
+        return entryRepository.count();
     }
 
     public void addNewEntries(List<Entry> entries) {
@@ -46,7 +30,31 @@ public class PYCRService {
         entryRepository.saveAll(newEntries);
     }
 
-    public long countEntries() {
-        return entryRepository.count();
+    public List<Entry> getColumn(String col) {
+        if (col.isEmpty()) {
+            throw new IllegalArgumentException("column name cannot be null or empty");
+        }
+
+        return entryRepository.findEntriesByColumn(col);
+    }
+
+    public List<Entry> getForDateRange(LocalDateTime startDate, LocalDateTime endDate) {
+        if (startDate.isAfter(endDate)) {
+            throw new IllegalArgumentException("start date cannot be after end date");
+        }
+
+        return entryRepository.findEntriesByDateRange(startDate, endDate);
+    }
+
+    public List<Entry> getColumnForDateRange(String col, LocalDateTime startDate, LocalDateTime endDate) {
+        if (col.isEmpty()) {
+            throw new IllegalArgumentException("column name cannot be null or empty");
+        }
+
+        if (startDate.isAfter(endDate)) {
+            throw new IllegalArgumentException("start date cannot be after end date");
+        }
+
+        return entryRepository.findColumnByDateRange(col, startDate, endDate);
     }
 }

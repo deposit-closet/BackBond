@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * A controller to handle incoming HTTP requests under the `/BackBond/api/v1` request mapping.
@@ -29,16 +30,6 @@ public class PYCRController {
     }
 
     /**
-     * Returns a JSON list of all the entries in the database to the client.
-     *
-     * @return the entries stored in the database. (200 OK)
-     */
-    @GetMapping
-    public ResponseEntity<List<Entry>> getEntries() {
-        return ResponseEntity.ok(entryService.getEntries());
-    }
-
-    /**
      * Returns the number of entries in the database.
      *
      * @return the number of entries in the database. (200 OK)
@@ -49,18 +40,36 @@ public class PYCRController {
     }
 
     /**
-     * Returns a list of entries in a given date range.
+     * Returns a list of entries depending on the specified variables.
      *
      * @param startDate starting date to capture.
      * @param endDate   ending date to capture.
-     * @return a list of entries in the range [startDate, endDate). (200 OK)
+     * @return a list of entries. (200 OK)
      */
-    @GetMapping(path = "/date-range")
+    @GetMapping("/entries/{col}")
     public ResponseEntity<List<Entry>> getEntriesByDateRange(
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")LocalDateTime startDate,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")LocalDateTime endDate
+            @PathVariable(required = false) Optional<String> col,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Optional<LocalDateTime> startDate,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Optional<LocalDateTime> endDate
     ) {
-        List<Entry> entries = entryService.findEntriesByDateRange(startDate, endDate);
+        List<Entry> entries;
+
+        if (col.isPresent()) {
+            if (startDate.isPresent() && endDate.isPresent()) {
+                // return column for date range
+                entries = entryService.getColumnForDateRange(col.get(), startDate.get(), endDate.get());
+            } else {
+                // return data for specified column
+                entries = entryService.getColumn(col.get());
+            }
+        } else if (startDate.isPresent() && endDate.isPresent()) {
+            // return data for specified date range
+            entries = entryService.getForDateRange(startDate.get(), endDate.get());
+        } else {
+            // return all entries normally
+            entries = entryService.getEntries();
+        }
+
         return ResponseEntity.ok(entries);
     }
 }
