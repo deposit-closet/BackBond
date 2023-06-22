@@ -7,10 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 /**
- * A controller to handle incoming HTTP requests under the `/BackBond/api/v1` request mapping.
+ * A {@link RestController} to handle incoming HTTP requests under the ``/BackBond/api/v1`` request mapping.
  */
 @RestController
 @RequestMapping(path = "/BackBond/api/v1")
@@ -35,39 +34,62 @@ public class PYCRController {
      * @return the number of entries in the database. (200 OK)
      */
     @GetMapping("/count")
-    public long getCount() {
-        return entryService.countEntries();
+    public ResponseEntity<Long> getCount() {
+        long countEntries = entryService.countEntries();
+        return ResponseEntity.ok(countEntries);
     }
 
     /**
-     * Returns a list of entries depending on the specified variables.
+     * Endpoint which supports various features, such as querying a response which consists of all the entire stored in
+     * the database.
+     * In addition to normally querying every entry in the database, this endpoint also supports querying entries from a
+     * given date range to reduce the scalability of each query to the database.
      *
-     * @param startDate starting date to capture.
-     * @param endDate   ending date to capture.
-     * @return a list of entries. (200 OK)
+     * @param startDate OPTIONAL: the starting date to query from
+     * @param endDate   OPTIONAL: the ending date to query from
+     * @return a list of all the selected entries
      */
-    @GetMapping("/entries/{col}")
-    public ResponseEntity<List<Entry>> getEntriesByDateRange(
-            @PathVariable(required = false) Optional<String> col,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Optional<LocalDateTime> startDate,
-            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") Optional<LocalDateTime> endDate
+    @GetMapping("/entries")
+    public ResponseEntity<List<Entry>> getEntries(
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime startDate,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime endDate
     ) {
         List<Entry> entries;
 
-        if (col.isPresent()) {
-            if (startDate.isPresent() && endDate.isPresent()) {
-                // return column for date range
-                entries = entryService.getColumnForDateRange(col.get(), startDate.get(), endDate.get());
-            } else {
-                // return data for specified column
-                entries = entryService.getColumn(col.get());
-            }
-        } else if (startDate.isPresent() && endDate.isPresent()) {
-            // return data for specified date range
-            entries = entryService.getForDateRange(startDate.get(), endDate.get());
-        } else {
-            // return all entries normally
+        if (startDate != null && endDate != null) {
+            entries = entryService.getForDateRange(startDate, endDate);
+        }
+        else {
             entries = entryService.getEntries();
+        }
+
+        return ResponseEntity.ok(entries);
+    }
+
+    /**
+     * Endpoint which core purpose is to return different columns of the database.
+     * Much similar to the previous endpoint, this endpoint also supports different features such as querying a column
+     * given a specified date range.
+     *
+     * @param col       the column name to query
+     * @param startDate the starting date to query from
+     * @param endDate   the ending date to query from
+     * @return a list containing the interest rate data for a column
+     */
+    @GetMapping("/entries/{col}")
+    public ResponseEntity<List<Double>> getColumn(
+            @PathVariable(required = true) String col,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime startDate,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime endDate
+
+    ) {
+        List<Double> entries;
+
+        if (startDate != null && endDate != null) {
+            entries = entryService.getColumnForDateRange(col, startDate, endDate);
+        }
+        else {
+             entries = entryService.getColumn(col);
         }
 
         return ResponseEntity.ok(entries);
