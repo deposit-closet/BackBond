@@ -13,7 +13,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
+import java.util.Queue;
 
 /**
  * Scheduled service used to fetch data from the Daily Treasury Par Yield Curve Rates XML feed and update the database with new entries.
@@ -67,9 +67,9 @@ public class DataUpdater {
 
                 try (InputStream inputStream = response.inputStream()) {
                     // parse the XML data using xmlParser
-                    List<Entry> entries = xmlParser.parseEntries(inputStream);
+                    Queue<Entry> entries = xmlParser.parseEntries(inputStream);
 
-                    // update database with any new entries
+                    // update the database with any new entries
                     dailyTreasuryRatesService.addNewEntries(entries);
                 }
             }

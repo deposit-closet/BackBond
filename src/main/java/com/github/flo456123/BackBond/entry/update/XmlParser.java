@@ -17,8 +17,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Helper class to {@link DataUpdater} which is used for parsing XML data from
@@ -39,8 +39,10 @@ public class XmlParser {
      * @throws SAXException if parser is not configured correctly for the {@link Entry} format
      * @throws ParserConfigurationException if {@link DocumentBuilderFactory} cannot create a new {@link DocumentBuilder}
      */
-    public List<Entry> parseEntries(InputStream content) throws IOException, SAXException, ParserConfigurationException {
-        List<Entry> entries = new ArrayList<>();
+    public Queue<Entry> parseEntries(InputStream content)
+            throws IOException, SAXException, ParserConfigurationException
+    {
+        Queue<Entry> entries = new LinkedList<>();
 
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document document = builder.parse(content);
@@ -49,7 +51,7 @@ public class XmlParser {
         for (int i = 0; i < nodeList.getLength(); i++) {
             Element entryElement = (Element) nodeList.item(i);
             Entry entry = parseEntryElement(entryElement);
-            entries.add(entry);
+            entries.offer(entry);
         }
 
         return entries;
@@ -61,7 +63,8 @@ public class XmlParser {
      * @param entryElement the element to parse into an entry
      * @return the parsed {@link Entry} object
      */
-    private Entry parseEntryElement(Element entryElement) {
+    private Entry parseEntryElement(Element entryElement)
+    {
         Entry entry = new Entry();
         entry.setNewDate(LocalDateTime.parse(entryElement.getElementsByTagName("d:NEW_DATE").item(0).getTextContent()));
 
@@ -94,7 +97,8 @@ public class XmlParser {
      * @param tagName the tag name to parse
      * @return the double value parsed from the tag, or {@code DEFAULT_VALUE} if the tag is empty
      */
-    private Double parseElementDouble(Element element, String tagName) {
+    private Double parseElementDouble(Element element, String tagName)
+    {
         try {
             return Double.parseDouble(element.getElementsByTagName(tagName).item(0).getTextContent());
         } catch (NullPointerException ignored) {
