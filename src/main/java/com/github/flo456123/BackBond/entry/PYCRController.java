@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * A controller to handle incoming HTTP requests under the `/BackBond/api/v1` request mapping.
+ * A {@link RestController} to handle incoming HTTP requests under the ``/BackBond/api/v1`` request mapping.
  */
 @RestController
 @RequestMapping(path = "/BackBond/api/v1")
@@ -29,38 +29,69 @@ public class PYCRController {
     }
 
     /**
-     * Returns a JSON list of all the entries in the database to the client.
-     *
-     * @return the entries stored in the database. (200 OK)
-     */
-    @GetMapping
-    public ResponseEntity<List<Entry>> getEntries() {
-        return ResponseEntity.ok(entryService.getEntries());
-    }
-
-    /**
      * Returns the number of entries in the database.
      *
      * @return the number of entries in the database. (200 OK)
      */
     @GetMapping("/count")
-    public long getCount() {
-        return entryService.countEntries();
+    public ResponseEntity<Long> getCount() {
+        long countEntries = entryService.countEntries();
+        return ResponseEntity.ok(countEntries);
     }
 
     /**
-     * Returns a list of entries in a given date range.
+     * Endpoint which supports various features, such as querying a response which consists of all the entire stored in
+     * the database.
+     * In addition to normally querying every entry in the database, this endpoint also supports querying entries from a
+     * given date range to reduce the scalability of each query to the database.
      *
-     * @param startDate starting date to capture.
-     * @param endDate   ending date to capture.
-     * @return a list of entries in the range [startDate, endDate). (200 OK)
+     * @param startDate OPTIONAL: the starting date to query from
+     * @param endDate   OPTIONAL: the ending date to query from
+     * @return a list of all the selected entries
      */
-    @GetMapping(path = "/date-range")
-    public ResponseEntity<List<Entry>> getEntriesByDateRange(
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")LocalDateTime startDate,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")LocalDateTime endDate
+    @GetMapping("/entries")
+    public ResponseEntity<List<Entry>> getEntries(
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime startDate,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime endDate
     ) {
-        List<Entry> entries = entryService.findEntriesByDateRange(startDate, endDate);
+        List<Entry> entries;
+
+        if (startDate != null && endDate != null) {
+            entries = entryService.getForDateRange(startDate, endDate);
+        }
+        else {
+            entries = entryService.getEntries();
+        }
+
+        return ResponseEntity.ok(entries);
+    }
+
+    /**
+     * Endpoint which core purpose is to return different columns of the database.
+     * Much similar to the previous endpoint, this endpoint also supports different features such as querying a column
+     * given a specified date range.
+     *
+     * @param col       the column name to query
+     * @param startDate the starting date to query from
+     * @param endDate   the ending date to query from
+     * @return a list containing the interest rate data for a column
+     */
+    @GetMapping("/entries/{col}")
+    public ResponseEntity<List<Double>> getColumn(
+            @PathVariable() String col,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime startDate,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime endDate
+
+    ) {
+        List<Double> entries;
+
+        if (startDate != null && endDate != null) {
+            entries = entryService.getColumnForDateRange(col, startDate, endDate);
+        }
+        else {
+             entries = entryService.getColumn(col);
+        }
+
         return ResponseEntity.ok(entries);
     }
 }
