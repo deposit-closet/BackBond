@@ -78,7 +78,7 @@ public class PYCRController {
      */
     @GetMapping("/entries/{col}")
     public ResponseEntity<List<Double>> getColumn(
-            @PathVariable(required = true) String col,
+            @PathVariable() String col,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime startDate,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime endDate
 
