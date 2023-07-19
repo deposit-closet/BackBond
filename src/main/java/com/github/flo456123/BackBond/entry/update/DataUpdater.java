@@ -63,7 +63,7 @@ public class DataUpdater {
         try (HttpClientWrapper httpClientWrapper = new HttpClientWrapper()) {
             for (int year = yearRangeStart; year <= yearRangeEnd; year++) {
                 // fetch XML data from the httpClientWrapper
-                HttpClientWrapper.HttpResponse response = httpClientWrapper.fetchXmlData(baseUrl + year);
+                HttpResponse response = httpClientWrapper.fetchXmlData(baseUrl + year);
 
                 try (InputStream inputStream = response.inputStream()) {
                     // parse the XML data using xmlParser
