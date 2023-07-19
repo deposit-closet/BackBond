@@ -68,17 +68,4 @@ public class HttpClientWrapper implements Closeable {
         httpClient.close();
         connectionManager.close();
     }
-
-    /**
-     * Wrapper around the {@link InputStream} class to reduce verbosity.
-     *
-     * @param inputStream the input stream containing the XML data
-     */
-    public record HttpResponse(InputStream inputStream) implements Closeable {
-
-        @Override
-        public void close() throws IOException {
-            inputStream.close();
-        }
-    }
 }
