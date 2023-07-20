@@ -7,7 +7,7 @@ import jakarta.persistence.criteria.Root;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Queue;
 
@@ -27,7 +27,7 @@ public class PYCRService {
     }
 
     public void addNewEntries(Queue<Entry> entries) {
-        List<LocalDateTime> existingDates = entryRepository.findAllDates();
+        List<LocalDate> existingDates = entryRepository.findAllDates();
 
         List<Entry> newEntries = entries.stream()
                 .filter(entry -> !existingDates.contains(entry.getNewDate()))
@@ -50,7 +50,7 @@ public class PYCRService {
         return entityManager.createQuery(query).getResultList();
     }
 
-    public List<Entry> getForDateRange(LocalDateTime startDate, LocalDateTime endDate) {
+    public List<Entry> getForDateRange(LocalDate startDate, LocalDate endDate) {
         if (startDate.isAfter(endDate)) {
             throw new IllegalArgumentException("start date cannot be after end date");
         }
@@ -58,7 +58,7 @@ public class PYCRService {
         return entryRepository.findEntriesByDateRange(startDate, endDate);
     }
 
-    public List<EntryProjectionImpl> getColumnForDateRange(String col, LocalDateTime startDate, LocalDateTime endDate) {
+    public List<EntryProjectionImpl> getColumnForDateRange(String col, LocalDate startDate, LocalDate endDate) {
         if (col.isEmpty()) {
             throw new IllegalArgumentException("column name cannot be empty");
         }
