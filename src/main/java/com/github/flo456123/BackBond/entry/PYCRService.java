@@ -36,16 +36,16 @@ public class PYCRService {
         entryRepository.saveAll(newEntries);
     }
 
-    public List<Double> getColumn(String col) {
+    public List<EntryProjectionImpl> getColumn(String col) {
         if (col.isEmpty()) {
             throw new IllegalArgumentException("column name cannot be empty");
         }
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Double> query = cb.createQuery(Double.class);
+        CriteriaQuery<EntryProjectionImpl> query = cb.createQuery(EntryProjectionImpl.class);
         Root<Entry> root = query.from(Entry.class);
 
-        query.select(root.get(col));
+        query.select(cb.construct(EntryProjectionImpl.class, root.get("newDate"), root.get(col)));
 
         return entityManager.createQuery(query).getResultList();
     }
@@ -58,16 +58,16 @@ public class PYCRService {
         return entryRepository.findEntriesByDateRange(startDate, endDate);
     }
 
-    public List<Double> getColumnForDateRange(String col, LocalDateTime startDate, LocalDateTime endDate) {
+    public List<EntryProjectionImpl> getColumnForDateRange(String col, LocalDateTime startDate, LocalDateTime endDate) {
         if (col.isEmpty()) {
             throw new IllegalArgumentException("column name cannot be empty");
         }
 
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Double> query = cb.createQuery(Double.class);
+        CriteriaQuery<EntryProjectionImpl> query = cb.createQuery(EntryProjectionImpl.class);
         Root<Entry> root = query.from(Entry.class);
 
-        query.select(root.get(col))
+        query.select(cb.construct(EntryProjectionImpl.class, root.get("newDate"), root.get(col)))
                 .where(cb.between(root.get("newDate"), startDate, endDate)); // date range filtering
 
         return entityManager.createQuery(query).getResultList();
