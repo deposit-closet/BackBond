@@ -77,13 +77,12 @@ public class PYCRController {
      * @return a list containing the interest rate data for a column
      */
     @GetMapping("/entries/{col}")
-    public ResponseEntity<List<Double>> getColumn(
+    public ResponseEntity<List<EntryProjectionImpl>> getColumn(
             @PathVariable() String col,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime startDate,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime endDate
-
     ) {
-        List<Double> entries;
+        List<EntryProjectionImpl> entries;
 
         if (startDate != null && endDate != null) {
             entries = entryService.getColumnForDateRange(col, startDate, endDate);
