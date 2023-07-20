@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -16,7 +17,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -66,7 +67,7 @@ public class XmlParser {
     private Entry parseEntryElement(Element entryElement)
     {
         Entry entry = new Entry();
-        entry.setNewDate(LocalDateTime.parse(entryElement.getElementsByTagName("d:NEW_DATE").item(0).getTextContent()));
+        entry.setNewDate(parseElementDate(entryElement));
 
         Field[] fields = Entry.class.getDeclaredFields();
         // iterate through each field of the Entry class, and set it to the double value
@@ -86,6 +87,19 @@ public class XmlParser {
         }
 
         return entry;
+    }
+
+    /**
+     * Parses an element into the ISO-8601 calendar system
+     * format.
+     *
+     * @param element The element to parse.
+     * @return A {@link LocalDate} instance of the date.
+     */
+    private LocalDate parseElementDate(Element element) {
+        Node node = element.getElementsByTagName("d:NEW_DATE").item(0);
+        String splitContent = node.getTextContent().split("T")[0];
+        return LocalDate.parse(splitContent);
     }
 
     final double DEFAULT_VALUE = 0.0;

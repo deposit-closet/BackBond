@@ -9,7 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -23,7 +23,7 @@ public class Entry {
     @GeneratedValue
     private Integer id;
 
-    private LocalDateTime newDate;
+    private LocalDate newDate;
 
     private double BC_1MONTH;
     private double BC_2MONTH;
