@@ -13,7 +13,6 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(path = "/BackBond/api/v1")
-@CrossOrigin(origins = "${spring.security.origin}")
 @RequiredArgsConstructor
 public class PYCRController {
 
