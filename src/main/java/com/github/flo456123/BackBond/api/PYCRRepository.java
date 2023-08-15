@@ -1,4 +1,4 @@
-package com.github.flo456123.BackBond.entry;
+package com.github.flo456123.BackBond.api;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

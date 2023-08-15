@@ -1,6 +1,6 @@
-package com.github.flo456123.BackBond.entry.update;
+package com.github.flo456123.BackBond.api.update;
 
-import com.github.flo456123.BackBond.entry.Entry;
+import com.github.flo456123.BackBond.api.Entry;
 import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

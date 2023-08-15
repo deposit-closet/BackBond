@@ -1,7 +1,7 @@
-package com.github.flo456123.BackBond.entry.update;
+package com.github.flo456123.BackBond.api.update;
 
-import com.github.flo456123.BackBond.entry.Entry;
-import com.github.flo456123.BackBond.entry.PYCRService;
+import com.github.flo456123.BackBond.api.Entry;
+import com.github.flo456123.BackBond.api.PYCRService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

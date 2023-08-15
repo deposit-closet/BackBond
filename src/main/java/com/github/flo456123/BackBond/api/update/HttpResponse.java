@@ -1,4 +1,4 @@
-package com.github.flo456123.BackBond.entry.update;
+package com.github.flo456123.BackBond.api.update;
 
 import java.io.Closeable;
 import java.io.IOException;

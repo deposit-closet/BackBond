@@ -1,4 +1,4 @@
-package com.github.flo456123.BackBond.entry;
+package com.github.flo456123.BackBond.api;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
