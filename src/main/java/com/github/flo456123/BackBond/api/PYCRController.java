@@ -58,8 +58,11 @@ public class PYCRController {
 
         if (startDate != null && endDate != null) {
             entries = entryService.getForDateRange(startDate, endDate);
-        }
-        else {
+        } else if (startDate != null) {
+            entries = entryService.getForDateRange(startDate, LocalDate.now());
+        } else if (endDate != null) {
+            entries = entryService.getForDateRange(LocalDate.now(), endDate);
+        } else {
             entries = entryService.getEntries();
         }
 
@@ -77,18 +80,21 @@ public class PYCRController {
      * @return a list containing the interest rate data for a column
      */
     @GetMapping("/entries/{col}")
-    public ResponseEntity<List<EntryProjectionImpl>> getColumn(
+    public ResponseEntity<List<EntryProjection>> getColumn(
             @PathVariable() String col,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate
     ) {
-        List<EntryProjectionImpl> entries;
+        List<EntryProjection> entries;
 
         if (startDate != null && endDate != null) {
             entries = entryService.getColumnForDateRange(col, startDate, endDate);
-        }
-        else {
-             entries = entryService.getColumn(col);
+        } else if (startDate != null) {
+            entries = entryService.getColumnForDateRange(col, startDate, LocalDate.now());
+        } else if (endDate != null) {
+            entries = entryService.getColumnForDateRange(col, LocalDate.now(), endDate);
+        } else {
+            entries = entryService.getColumn(col);
         }
 
         return ResponseEntity.ok(entries);
