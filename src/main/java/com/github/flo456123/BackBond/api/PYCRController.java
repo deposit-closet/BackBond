@@ -61,7 +61,7 @@ public class PYCRController {
         } else if (startDate != null) {
             entries = entryService.getForDateRange(startDate, LocalDate.now());
         } else if (endDate != null) {
-            entries = entryService.getForDateRange(LocalDate.now(), endDate);
+            entries = entryService.getForDateRange(LocalDate.of(1990, 1, 2), endDate);
         } else {
             entries = entryService.getEntries();
         }
@@ -92,7 +92,7 @@ public class PYCRController {
         } else if (startDate != null) {
             entries = entryService.getColumnForDateRange(col, startDate, LocalDate.now());
         } else if (endDate != null) {
-            entries = entryService.getColumnForDateRange(col, LocalDate.now(), endDate);
+            entries = entryService.getColumnForDateRange(col, LocalDate.of(1990, 1, 2), endDate);
         } else {
             entries = entryService.getColumn(col);
         }
