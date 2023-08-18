@@ -56,7 +56,7 @@ public class PYCRController {
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate
     ) {
-        List<Entry> entries = handleDateRangeQuery(startDate, endDate,
+        List<Entry> entries = handleDateCaptureQuery(startDate, endDate,
                 entryService::getEntries,
                 entryService::getForDateRange
         );
@@ -80,7 +80,7 @@ public class PYCRController {
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate
     ) {
-        List<EntryProjection> entries = handleDateRangeQuery(startDate, endDate,
+        List<EntryProjection> entries = handleDateCaptureQuery(startDate, endDate,
                 () -> entryService.getColumn(col),
                 (sDate, eDate) -> entryService.getColumnForDateRange(col, sDate, eDate)
         );
@@ -97,9 +97,9 @@ public class PYCRController {
      * @param dateRangeSupplier the function to call if there is a date range present
      * @return the resulting query
      */
-    private <T> List<T> handleDateRangeQuery(LocalDate startDate, LocalDate endDate,
-                                             Supplier<List<T>> noDateRangeSupplier,
-                                             BiFunction<LocalDate, LocalDate, List<T>> dateRangeSupplier) {
+    private <T> List<T> handleDateCaptureQuery(LocalDate startDate, LocalDate endDate,
+                                               Supplier<List<T>> noDateRangeSupplier,
+                                               BiFunction<LocalDate, LocalDate, List<T>> dateRangeSupplier) {
         if (startDate != null && endDate != null) {
             return dateRangeSupplier.apply(startDate, endDate);
         } else if (startDate != null) {
