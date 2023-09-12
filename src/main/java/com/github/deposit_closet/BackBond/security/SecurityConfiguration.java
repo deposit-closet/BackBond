@@ -1,6 +1,6 @@
-package com.github.flo456123.BackBond.security;
+package com.github.deposit_closet.BackBond.security;
 
-import com.github.flo456123.BackBond.security.filter.ApiKeyAuthenticationFilter;
+import com.github.deposit_closet.BackBond.security.filter.ApiKeyAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
