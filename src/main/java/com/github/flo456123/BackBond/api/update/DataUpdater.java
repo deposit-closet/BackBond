@@ -33,7 +33,7 @@ public class DataUpdater {
     private final XmlParser xmlParser;
 
     private static final String baseUrl = """
-            https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=""";
+            https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_yield_curve&field_tdr_date_value=all&page=""";
 
     @Value("${year.range.start}")
     private int yearRangeStart;
