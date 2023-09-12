@@ -1,4 +1,4 @@
-package com.github.flo456123.BackBond;
+package com.github.deposit_closet.BackBond;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

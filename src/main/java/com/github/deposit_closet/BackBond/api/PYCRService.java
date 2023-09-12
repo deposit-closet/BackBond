@@ -1,4 +1,4 @@
-package com.github.flo456123.BackBond.api;
+package com.github.deposit_closet.BackBond.api;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
