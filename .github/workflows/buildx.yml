@@ -12,19 +12,21 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        env:
+          DOCKER_TOKEN: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Set up QEMU
         run: docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 
       - name: Log in to Docker Hub
-        run: docker login -u $DOCKER_USERNAME -p ${{ secrets.DOCKER_PASSWORD }}
+        run: echo $DOCKER_TOKEN | docker login -u flo456123 --password-stdin
 
       - name: Build and push Docker image
         run: |
           docker buildx create --use
           docker buildx build \
             --platform linux/amd64,linux/arm64 \
-            -t $DOCKER_USERNAME/private:back-bond \
+            -t flo456123/private:back-bond \
             --push .
 
       - name: Clean up
