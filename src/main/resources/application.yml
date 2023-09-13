@@ -5,6 +5,7 @@
 #                                                             #
 # The following are the requirements                          #
 # API_KEY: the key used to access the API                     #
+# DB_URL: the database url                                    #
 # DB_PASSWORD: password to database                           #
 # SECURITY_PASSWORD: spring security password                 #
 # ALLOWED_ORIGINS: a list of allowed origins                  #
@@ -18,7 +19,7 @@ spring:
   api:
     key: ${API_KEY}
   datasource:
-    url: http://db:3306/dailytreasuryratesdb
+    url: ${DB_URL}
     username: root
     password: ${DB_PASSWORD}
   jpa:
