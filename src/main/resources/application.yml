@@ -1,0 +1,42 @@
+###############################################################
+# Make sure to set all the required environment variables in  #
+# your docker-compose configuration or whatever else you are  #
+# using before trying to run this project.                    #
+#                                                             #
+# The following are the requirements                          #
+# API_KEY: the key used to access the API                     #
+# DB_PASSWORD: password to database                           #
+# SECURITY_PASSWORD: spring security password                 #
+# ALLOWED_ORIGINS: a list of allowed origins                  #
+################################################################
+
+server:
+  error:
+    include-message: on_param
+
+spring:
+  api:
+    key: ${API_KEY}
+  datasource:
+    url: http://db:3306/dailytreasuryratesdb
+    username: root
+    password: ${DB_PASSWORD}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    hibernate:
+      ddl-auto: update
+  security:
+    user:
+      password: ${SECURITY_PASSWORD}
+    origins: ${ALLOWED_ORIGINS}
+
+# pages to query from, see data updater
+# class for more info
+#
+page:
+  range:
+    start: 0
+    end: 28
