@@ -19,6 +19,7 @@ spring:
   api:
     key: ${API_KEY}
   datasource:
+    driver-class-name: com.mysql.jdbc.Driver
     url: ${DB_URL}
     username: root
     password: ${DB_PASSWORD}
