@@ -1,16 +1,3 @@
-###############################################################
-# Make sure to set all the required environment variables in  #
-# your docker-compose configuration or whatever else you are  #
-# using before trying to run this project.                    #
-#                                                             #
-# The following are the requirements                          #
-# API_KEY: the key used to access the API                     #
-# DB_URL: the database url                                    #
-# DB_PASSWORD: password to database                           #
-# SECURITY_PASSWORD: spring security password                 #
-# ALLOWED_ORIGINS: a list of allowed origins                  #
-################################################################
-
 server:
   error:
     include-message: on_param
@@ -33,12 +20,12 @@ spring:
   security:
     user:
       password: ${SECURITY_PASSWORD}
-    origins: ${ALLOWED_ORIGINS}
+    origins: ${KNOWN_ORIGINS}
 
-# pages to query from, see data updater
-# class for more info
+# pages to query from, see data
+# updater class for more info
 #
 page:
   range:
-    start: 0
-    end: 28
+    start: ${PAGE_START}
+    end: ${PAGE_END}
