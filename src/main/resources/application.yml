@@ -20,7 +20,7 @@ spring:
   security:
     user:
       password: ${SECURITY_PASSWORD}
-    origins: ${KNOWN_ORIGINS}
+    origins: ${KNOWN_ORIGINS} # comma seperated values
 
 # pages to query from, see data
 # updater class for more info
