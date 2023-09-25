@@ -1,0 +1,18 @@
+sudo: required
+
+services:
+  - docker
+
+jobs:
+  include:
+    - stage: Run Tests
+      script:
+        - sudo apt install maven
+        - mvn test 
+    - stage: Build and Push Docker Image
+      - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+      - docker buildx create --use
+      - docker buildx version
+      - docker buildx build --platform linux/amd64,linux/arm64 -t $DOCKERHUB_USERNAME/private:back-bond
+      - docker push $DOCKERHUB_USERNAME/private:back-bond
+      - docker buildx rm
