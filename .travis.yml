@@ -10,6 +10,7 @@ jobs:
         - sudo apt install maven
         - mvn test 
     - stage: Build and Push Docker Image
+      script:
       - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
       - docker buildx create --use
       - docker buildx version
