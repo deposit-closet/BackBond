@@ -1,4 +1,6 @@
 language: java
+jdk:
+  - openjdk17
 
 #jobs:
   #include:
