@@ -1,3 +1,5 @@
+language: java
+
 #jobs:
   #include:
     #- stage: Run Tests
