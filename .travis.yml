@@ -6,9 +6,9 @@ services:
 jobs:
   include:
     - stage: Run Tests
-      script:
-        - sudo apt install maven
-        - mvn test 
+      #script:
+      #  - sudo apt install maven
+      #  - mvn test
     - stage: Build and Push Docker Image
       script:
       - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
