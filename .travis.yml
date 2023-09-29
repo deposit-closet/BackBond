@@ -5,7 +5,7 @@ services:
 
 jobs:
   include:
-    - stage: Run Tests
+    #- stage: Run Tests
       #script:
       #  - sudo apt install maven
       #  - mvn test
