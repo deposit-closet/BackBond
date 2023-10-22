@@ -7,15 +7,16 @@ services:
 
 jobs:
   include:
-    - stage: Set Up MySQL Database
+    - stage: Run Tests
       script:
         - docker pull mysql:latest
         - docker run --name my-mysql -e MYSQL_ROOT_PASSWORD=${DB_PASSWORD} -d mysql:latest
-        - sleep 15
-    - stage: Run Tests
-      script:
         - sudo apt install maven
         - mvn test
-    - stage: Deploy
-      provider: script
-      script: bash scripts/deploy_docker
+
+deploy:
+  provider: script
+  script: bash scripts/deploy_docker
+  on:
+    branch:
+      master
