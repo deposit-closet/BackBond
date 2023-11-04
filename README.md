@@ -1,28 +1,57 @@
-# BackBond #
+# BackBond 
 
-BackBond is the backend API used in
-Daily Treasury Par Yield Curve Rates Visualizer.
+This application presists government interest data and allows a client to query it through the provided endpoints.
 
-This was made for a project in collaboration
-with a friend and my dad.
+## Context
 
-## Context ##
+I created this application because my dad would view the government interest rate data from the government ran website [here](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve), and by taking one look you can probably tell that it is not very insightful. This sparked the creation for BackBond which works hand in hand with the frontend, *FrontBond*, which provides an easy to use interface to visualizing the government interest rate data in a pretty way.
 
-My dad loves to check the "Daily Treasury Par yield Curve
-Rates" every day on his phone, which can be found [here](https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve).
+## API Docs ##
 
-One day when he was explaining to me the significance
-of the data. He mentioned how if I could plot this
-interest rate data on a graph, we could potentially
-predict when the next [bear market](https://www.investor.gov/introduction-investing/investing-basics/glossary/bear-market#:~:text=A%20time%20when%20stock%20prices,least%20a%20two%2Dmonth%20period.)
-will hit. During a bear market, everything is at its cheapest
-buying point, meaning it is a great time to buy
-low sell high. 
+### Status ###
 
-My role in this mini-project was to create a RESTful API
-that will relay data to the frontend webpage where the
-data is going to be displayed for my dad to see on a graph.
+GET `/status`
 
-## Documentation ##
+Status of API.
 
-The documentation for the API can be found [here](https://github.com/flo456123/BackBond/blob/master/BackBond-api.md).
+* Status code 200-"OK" the API is working properly
+* Anything else- something is not right
+
+### Count entries ###
+
+Number of entries stored in the database.
+
+GET `/count`
+
+### List of entries ###
+
+All data throughout every entry.
+
+GET `/entries`
+
+Request parameters:
+* **OPTIONAL** startDate: the starting date to query from
+    - Ends at the current date if no `endDate` is provided
+* **OPTIONAL** endDate: the date to stop the query at
+    - Starts from the first entry if no `startDate` is provided
+
+### Select column ###
+
+Interest rate data for a specific column.
+
+GET `/entries/:col`
+
+Request parameters:
+* **OPTIONAL** startDate: the starting date to query from
+    - Ends at the current date if no `endDate` is provided
+* **OPTIONAL** endDate: the date to stop the query at
+    - Starts from the first entry if no `startDate` is provided
+
+## API Authentication ##
+
+In order to use the API, you must have the BackBond API key
+included in the authorization header of your request.
+
+**Possible errors**
+
+- Status code 401—"Invalid API Key." You will receive this response if your API key is invalid.
